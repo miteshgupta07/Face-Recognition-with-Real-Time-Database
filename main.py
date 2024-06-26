@@ -28,11 +28,16 @@ while True:
     imgS=cv2.cvtColor(imgS,cv2.COLOR_BGR2RGB)
 
     face_current_frame=face_recognition.face_locations(imgS)
-
+    encode_current_frame=face_recognition.face_encodings(imgS,face_current_frame)
 
     img_background[162:162+480, 55:55+640]=img
     img_background[44:44+633, 808:808+414]=imgModeList[3]
 
-    cv2.imshow('Background',img_background)
+    for encode_face, face_loc in zip(encode_current_frame,face_current_frame):
+        matches=face_recognition.compare_faces(encoding_list_known,encode_face)
+        face_dist=face_recognition.face_distance(encoding_list_known,encode_face)
+        print(matches)
+
+    # cv2.imshow('Background',img_background)
     if cv2.waitKey(1) & 0xFF==27:
         break
