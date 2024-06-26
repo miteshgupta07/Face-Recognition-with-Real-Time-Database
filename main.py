@@ -1,5 +1,6 @@
 import cv2
 import os
+import pickle 
 
 cap=cv2.VideoCapture(0)
 cap.set(3,640)
@@ -13,6 +14,11 @@ imgModeList=[]
 for path in ModePathList:
     imgModeList.append(cv2.imread(os.path.join(FolderModePath,path)))
 
+with open("EncodeFile.pkl", "rb") as file: 
+    encoding_list_with_ids=pickle.load(file)
+
+encoding_list,student_ids=encoding_list_with_ids
+print(student_ids)
 
 while True:
     success,img=cap.read()
