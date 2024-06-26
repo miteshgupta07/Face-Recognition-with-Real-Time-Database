@@ -2,6 +2,7 @@ import cv2
 import os
 import pickle 
 import face_recognition
+import numpy as np
 
 cap=cv2.VideoCapture(0)
 cap.set(3,640)
@@ -36,8 +37,13 @@ while True:
     for encode_face, face_loc in zip(encode_current_frame,face_current_frame):
         matches=face_recognition.compare_faces(encoding_list_known,encode_face)
         face_dist=face_recognition.face_distance(encoding_list_known,encode_face)
-        print(matches)
 
-    # cv2.imshow('Background',img_background)
+    match_index=np.argmin(face_dist)
+
+    if matches[match_index]:
+        print("Known Face Detected")
+        print(student_ids[match_index])
+
+    cv2.imshow('Background',img_background)
     if cv2.waitKey(1) & 0xFF==27:
         break
