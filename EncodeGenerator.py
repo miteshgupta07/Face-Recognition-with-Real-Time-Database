@@ -12,7 +12,7 @@ firebase_admin.initialize_app(cred,{
     "storageBucket":"real-time-face-recogniti-24c1b.appspot.com"
 })
 
-
+ 
 folderPath = 'Images'
 pathList = os.listdir(folderPath)
 imgList = []
