@@ -70,6 +70,8 @@ while True:
                 id=student_ids[match_index]
                 if counter==0:
                     cvzone.putTextRect(img_background, "Loading", (275, 400))
+                    cv2.imshow('Face Recognition',img_background)
+                    cv2.waitKey(1)
                     counter=1
                     modeType=1
         
@@ -83,44 +85,52 @@ while True:
                 img_student=cv2.imdecode(array,cv2.COLOR_BGRA2BGR)
 
                 datetime_obj=datetime.strptime(student_info['last_attendance_time'],"%Y-%m-%d %H:%M:%S")
-                seconds_elapsed=(datetime.now()-datetime_obj).total_seconds()
-                print(seconds_elapsed)
+                time_elapsed=(datetime.now()-datetime_obj).total_seconds()
+                # print(time_elapsed)
 
-
-                ref=db.reference(f'Students/{id}')
-                student_info['total_attendance']+=1
-                ref.child('total_attendance').set(student_info['total_attendance'])
-
-            if 10<counter<20:
-                modeType=2
-            img_background[44:44+633,808:808+414]=imgModeList[modeType]
-
-            if counter<=10:
-                cv2.putText(img_background, str(student_info['total_attendance']), (861, 125), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1)
-                cv2.putText(img_background, str(student_info['major']), (1006, 550), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-                cv2.putText(img_background, str(id), (1006, 493), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-                cv2.putText(img_background, str(student_info['standing']), (910, 625), cv2.FONT_HERSHEY_COMPLEX, 0.6, (100, 100, 100), 1)
-                cv2.putText(img_background, str(student_info['year']), (1025, 625), cv2.FONT_HERSHEY_COMPLEX, 0.6, (100, 100, 100), 1)
-                cv2.putText(img_background, str(student_info['starting_year']), (1125, 625), cv2.FONT_HERSHEY_COMPLEX, 0.6, (100, 100, 100), 1)
-                
-                
-                (w,h),_=cv2.getTextSize(student_info['name'], cv2.FONT_HERSHEY_COMPLEX, 1, 1)
-                offset=(414-w)//2
-                cv2.putText(img_background, str(student_info['name']), (808+offset, 445), cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 50), 1)
-
-                img_background[175:175+216,909:909+216]=img_student
-            counter+=1
-
-            if counter>=20:
-                counter=0
-                modeType=0
-                student_info=[]
-                img_student=[]
+                if time_elapsed>30:
+                    ref=db.reference(f'Students/{id}')
+                    student_info['total_attendance']+=1
+                    ref.child('total_attendance').set(student_info['total_attendance'])
+                    ref.child('last_attendance_time').set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                else:
+                    modeType=3
+                    counter=0
+                    img_background[44:44+633,808:808+414]=imgModeList[modeType]
+                    
+            if modeType!=3:
+                if 10<counter<20:
+                    modeType=2
                 img_background[44:44+633,808:808+414]=imgModeList[modeType]
 
+                if counter<=10:
+                    cv2.putText(img_background, str(student_info['total_attendance']), (861, 125), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1)
+                    cv2.putText(img_background, str(student_info['major']), (1006, 550), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
+                    cv2.putText(img_background, str(id), (1006, 493), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
+                    cv2.putText(img_background, str(student_info['standing']), (910, 625), cv2.FONT_HERSHEY_COMPLEX, 0.6, (100, 100, 100), 1)
+                    cv2.putText(img_background, str(student_info['year']), (1025, 625), cv2.FONT_HERSHEY_COMPLEX, 0.6, (100, 100, 100), 1)
+                    cv2.putText(img_background, str(student_info['starting_year']), (1125, 625), cv2.FONT_HERSHEY_COMPLEX, 0.6, (100, 100, 100), 1)
+                    
+                    
+                    (w,h),_=cv2.getTextSize(student_info['name'], cv2.FONT_HERSHEY_COMPLEX, 1, 1)
+                    offset=(414-w)//2
+                    cv2.putText(img_background, str(student_info['name']), (808+offset, 445), cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 50), 1)
 
+                    img_background[175:175+216,909:909+216]=img_student
+                counter+=1
+
+                if counter>=20:
+                    counter=0
+                    modeType=0
+                    student_info=[]
+                    img_student=[]
+                    img_background[44:44+633,808:808+414]=imgModeList[modeType]
+
+    else:
+        modeType=0
+        counter=0
     
 
-    cv2.imshow('Background',img_background)
+    cv2.imshow('Face Recognition',img_background)
     if cv2.waitKey(1) & 0xFF==27:
         break
