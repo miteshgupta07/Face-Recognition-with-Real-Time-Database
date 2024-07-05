@@ -6,10 +6,10 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 
-cred = credentials.Certificate("E:\Data Science\Projects\serviceAccountKey.json")
+cred = credentials.Certificate(".\serviceAccountKey.json")
 firebase_admin.initialize_app(cred,{
-    "databaseURL":"https://real-time-face-recogniti-24c1b-default-rtdb.firebaseio.com/",
-    "storageBucket":"real-time-face-recogniti-24c1b.appspot.com"
+    "databaseURL":"Firebase Real Time database URL",
+    "storageBucket":"Firebase Storage Bucket  URL"
 })
 
  
