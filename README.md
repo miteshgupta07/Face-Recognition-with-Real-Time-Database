@@ -1,23 +1,23 @@
-# Face Recognition System with Real-Time Database
+# 🙎‍♂️Face Recognition System with Real-Time Database
 
-## Overview
+## 📋 Overview
 
 This project is a Face Recognition System that generates face encodings for stored data and uses these encodings to recognize new faces. When a new face is recognized, the data is added to a real-time database using Firebase.
 
-## Features
+## ✨ Features
 
-- **Face Encoding Generation:** Generates unique encodings for faces stored in the database.
-- **Real-Time Face Recognition:** Recognizes new faces using the generated encodings.
-- **Real-Time Database Integration:** Adds recognized face data to Firebase in real-time.
+- **🔢 Face Encoding Generation:** Generates unique encodings for faces stored in the database.
+- **🕵️ Real-Time Face Recognition:** Recognizes new faces using the generated encodings.
+- **🔄 Real-Time Database Integration:** Adds recognized face data to Firebase in real-time.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 - Python
 - OpenCV
 - dlib
 - Firebase
 
-## Installation
+## 🚀 Installation
 
 To get started with the project, follow these steps:
 
@@ -43,7 +43,7 @@ To get started with the project, follow these steps:
     - Add a real-time database to your project.
     - Download the `serviceAccountKey.json` file from Firebase and place it in your project directory.
 
-## Usage
+## 📘 Usage
 
 1. **Generate Face Encodings:**
     - Run the script to generate face encodings for stored data.
@@ -57,7 +57,7 @@ To get started with the project, follow these steps:
     python main.py
     ```
 
-## Configuration
+## ⚙️ Configuration
 
 Make sure to configure your Firebase settings in the `firebase_config.json` file. Here is a template:
 
@@ -71,11 +71,11 @@ Make sure to configure your Firebase settings in the `firebase_config.json` file
 }
 ```
 
-## Contributing
+## 🤝 Contributing
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📄License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/miteshgupta07/Face-Recognition-with-Real-Time-Database/blob/main/LICENSE) file for details.
 
-## Contact
+## 📧Contact
 If you have any questions or feedback, feel free to reach out to me at miteshgupta2711@gmail.com.
